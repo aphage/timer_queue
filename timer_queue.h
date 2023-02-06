@@ -44,6 +44,7 @@ public:
             _stop = true;
 
         }
+        _cond.notify_all();
         _thread.join();
     }
 
