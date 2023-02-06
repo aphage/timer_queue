@@ -136,15 +136,15 @@ private:
                 if(_stop) {
                     break;
                 }
-                if(!_queue.top().callback) {
+                t = _queue.top();
+                if(!t.callback) {
                     _queue.pop();
                     continue;
                 }
-                auto status = _cond.wait_until(lock, _queue.top().end);
+                auto status = _cond.wait_until(lock, t.end);
                 if(status != std::cv_status::timeout) {
                     continue;
                 }
-                t = std::move(_queue.top());
                 _queue.pop();
             }
             
